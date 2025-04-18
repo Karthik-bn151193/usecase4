@@ -41,7 +41,7 @@ module "lambda_add" {
     DYNAMODB_TABLE_NAME = module.dynamodb_table.table_name
   }
   
-  filename      = "./modules/lambda/add_user.zip"
+  filename      = "./modules/lambda/add_user"
   depends_on    = [module.dynamodb_table]
 }
 
@@ -57,7 +57,7 @@ module "lambda_retrieve" {
     DYNAMODB_TABLE_NAME = module.dynamodb_table.table_name
   }
   
-  filename      = "./modules/lambda/get_user.zip"
+  filename      = "./modules/lambda/get_user"
   depends_on    = [module.dynamodb_table]
 }
 
