@@ -46,6 +46,17 @@ jobs:
         run: tflint --init && tflint -f compact
         working-directory: ./
 
+# Checkov Integration
+      - name: Install Checkov
+        run: |
+          pip3 install --upgrade pip
+          pip3 install checkov
+
+      - name: Run Checkov
+        id: checkov
+        run: checkov -d . --framework terraform
+        working-directory: ./
+
    
 
       # Terraform Steps
