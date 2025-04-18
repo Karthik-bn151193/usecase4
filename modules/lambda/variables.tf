@@ -25,6 +25,7 @@ variable "timeout" {
 
 variable "filename" {
   type        = string
+default = "main.py"
   description = "Path to the Lambda function deployment package (.zip file)"
 }
 
