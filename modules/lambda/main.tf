@@ -49,7 +49,6 @@ resource "aws_lambda_function" "main" {
   memory_size      = var.memory_size
   timeout          = var.timeout
   filename         = var.filename
-  source_code_hash = (var.filename)
   role             = aws_iam_role.lambda_role.arn
   environment {
     variables = var.environment_variables
