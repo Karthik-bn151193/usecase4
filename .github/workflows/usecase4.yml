@@ -78,8 +78,8 @@ jobs:
       
       - name: commit and push the report
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
+          git config --global user.name "Karthik-bn151193"
+          git config --global user.email "karthik.bn15111993@gmail.com"
           git add docs/report.md
           git commit -m "Add deployment report"
           git push
