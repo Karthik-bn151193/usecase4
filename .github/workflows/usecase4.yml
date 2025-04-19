@@ -76,11 +76,15 @@ jobs:
           echo '```' >> docs/report.md
         working-directory: ./
       
-      - name: upload markdown file
-        uses: actions/upload-artifact@v4
-        with:
-          name: deployment-report
-          path: docs/report.md
+      - name: commit and push the report
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com
+          git add docs/report.md
+          git commit -m "Add deployment report"
+          git push
+       env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
           working-directory: ./  
 
       - name: Comment Plan to Pull Request
