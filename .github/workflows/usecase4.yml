@@ -75,7 +75,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: deployment-report
-          path: docs/repor.md
+          path: docs/report.md
           
 
       - name: Comment Plan to Pull Request
