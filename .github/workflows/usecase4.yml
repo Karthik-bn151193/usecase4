@@ -60,7 +60,7 @@ jobs:
 
       - name: Generate Terraform Plan
         id: plan
-        run: terraform plan -no-color -lock=false
+        run: terraform plan -no-color -lock=false > plan.txt
         working-directory: ./
 
       - name: Create Plan Output Markdown
@@ -69,14 +69,19 @@ jobs:
           mkdir -p docs
           echo "#Deployment Report" > docs/report.md
           echo "This file was generated during the github actions workflow run." >> docs/report.md
-        
+          echo "" >> docs/report.md
+          echo "## Terraform Plan Output" >> docs/report.md
+          echo '```' >> docs/report.md
+          cat plan.txt >> docs/report.md
+          echo '```' >> docs/report.md
+        working-directory: ./
       
       - name: upload markdown file
         uses: actions/upload-artifact@v4
         with:
           name: deployment-report
           path: docs/report.md
-          
+          working-directory: ./  
 
       - name: Comment Plan to Pull Request
         uses: actions/github-script@v7
