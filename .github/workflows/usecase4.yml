@@ -66,10 +66,9 @@ jobs:
       - name: Create Plan Output Markdown
         id: plan_report
         run: |
-          echo "#### Terraform Plan Output" >> plan.md
-          echo "```terraform" >> plan.md
-          echo "$(terraform plan -no-color)" >> plan.md
-          echo "```" >> plan.md
+          mkdir -p docs
+          echo "#Deployment Report" > docs/report.md
+          echo "This file was generated during the github actions workflow run." >> docs/report.md
         working-directory: ./
 
       - name: Comment Plan to Pull Request
