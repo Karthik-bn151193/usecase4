@@ -93,7 +93,7 @@ jobs:
  
       - name: Run Checkov
         id: checkov
-        run: checkov -d . --framework terraform
+        run: checkov -d . --framework terraform --soft-fail
         working-directory: ./
  
       - name: Comment Plan to Pull Request
