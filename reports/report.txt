@@ -2,29 +2,79 @@
 This file was generated during the github actions workflow run.
 
 ## Terraform Plan Output
-[command]/home/runner/work/_temp/33c0f565-27c9-48da-9359-25cf1d796fa7/terraform-bin plan -no-color -lock=false
-module.dynamodb_table.aws_dynamodb_table.main: Refreshing state... [id=UserDataTable]
-module.lambda_add.data.aws_caller_identity.current: Reading...
-module.lambda_retrieve.data.aws_caller_identity.current: Reading...
-module.lambda_retrieve.data.aws_region.current: Reading...
-module.lambda_add.aws_iam_role.lambda_role: Refreshing state... [id=user-data-add-role20250418122135669100000001]
-module.lambda_add.data.aws_region.current: Reading...
-module.lambda_retrieve.aws_iam_role.lambda_role: Refreshing state... [id=user-data-retrieve-role20250418122135670300000002]
-module.lambda_retrieve.data.aws_region.current: Read complete after 0s [id=us-east-1]
-module.lambda_add.data.aws_region.current: Read complete after 0s [id=us-east-1]
-module.lambda_retrieve.data.aws_caller_identity.current: Read complete after 0s [id=945839052546]
-module.lambda_retrieve.aws_iam_policy.lambda_policy: Refreshing state... [id=arn:aws:iam::945839052546:policy/user-data-retrieve-policy20250418122135804600000004]
-module.lambda_add.data.aws_caller_identity.current: Read complete after 0s [id=945839052546]
-module.lambda_add.aws_iam_policy.lambda_policy: Refreshing state... [id=arn:aws:iam::945839052546:policy/user-data-add-policy20250418122135737400000003]
-module.lambda_add.aws_iam_role_policy_attachment.lambda_policy_attachment: Refreshing state... [id=user-data-add-role20250418122135669100000001-20250418122136684100000006]
-module.lambda_retrieve.aws_iam_role_policy_attachment.lambda_policy_attachment: Refreshing state... [id=user-data-retrieve-role20250418122135670300000002-20250418122136452400000005]
+[command]/home/runner/work/_temp/7d04202d-1bdf-45b7-bdfd-80a43929aa7a/terraform-bin plan -no-color -lock=false
+aws_security_group.ec2-sg: Refreshing state... [id=sg-0a7433b295d7521bc]
+module.ec2_instance.aws_instance.server: Refreshing state... [id=i-0c728bd5e8edc4b88]
 
 Terraform used the selected providers to generate the following execution
 plan. Resource actions are indicated with the following symbols:
   + create
+  - destroy
  <= read (data resources)
 
 Terraform will perform the following actions:
+
+  # aws_security_group.ec2-sg will be destroyed
+  # (because aws_security_group.ec2-sg is not in configuration)
+  - resource "aws_security_group" "ec2-sg" {
+      - arn                    = "arn:aws:ec2:us-east-1:945839052546:security-group/sg-0a7433b295d7521bc" -> null
+      - description            = "Managed by Terraform" -> null
+      - egress                 = [
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - from_port        = 0
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "-1"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ] -> null
+      - id                     = "sg-0a7433b295d7521bc" -> null
+      - ingress                = [
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - from_port        = 22
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "tcp"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 22
+                # (1 unchanged attribute hidden)
+            },
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - from_port        = 80
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "tcp"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 80
+                # (1 unchanged attribute hidden)
+            },
+        ] -> null
+      - name                   = "terraform-20250421111455485200000001" -> null
+      - name_prefix            = "terraform-" -> null
+      - owner_id               = "945839052546" -> null
+      - revoke_rules_on_delete = false -> null
+      - tags                   = {
+          - "Name" = "server"
+        } -> null
+      - tags_all               = {
+          - "Name" = "server"
+        } -> null
+      - vpc_id                 = "vpc-0feb09ec941ba1ac9" -> null
+    }
 
   # module.api_gateway.data.aws_region.current will be read during apply
   # (depends on a resource or a module with changes pending)
@@ -171,6 +221,205 @@ Terraform will perform the following actions:
       + statement_id_prefix = (known after apply)
     }
 
+  # module.dynamodb_table.aws_dynamodb_table.main will be created
+  + resource "aws_dynamodb_table" "main" {
+      + arn              = (known after apply)
+      + billing_mode     = "PAY_PER_REQUEST"
+      + hash_key         = "UserID"
+      + id               = (known after apply)
+      + name             = "UserDataTable"
+      + read_capacity    = (known after apply)
+      + stream_arn       = (known after apply)
+      + stream_label     = (known after apply)
+      + stream_view_type = (known after apply)
+      + tags             = {
+          + "Environment" = "dev"
+        }
+      + tags_all         = {
+          + "Environment" = "dev"
+        }
+      + write_capacity   = (known after apply)
+
+      + attribute {
+          + name = "UserID"
+          + type = "S"
+        }
+
+      + point_in_time_recovery (known after apply)
+
+      + server_side_encryption (known after apply)
+
+      + ttl (known after apply)
+    }
+
+  # module.ec2_instance.aws_instance.server will be destroyed
+  # (because aws_instance.server is not in configuration)
+  - resource "aws_instance" "server" {
+      - ami                                  = "ami-084568db4383264d4" -> null
+      - arn                                  = "arn:aws:ec2:us-east-1:945839052546:instance/i-0c728bd5e8edc4b88" -> null
+      - associate_public_ip_address          = true -> null
+      - availability_zone                    = "us-east-1a" -> null
+      - cpu_core_count                       = 1 -> null
+      - cpu_threads_per_core                 = 1 -> null
+      - disable_api_stop                     = false -> null
+      - disable_api_termination              = false -> null
+      - ebs_optimized                        = false -> null
+      - get_password_data                    = false -> null
+      - hibernation                          = false -> null
+      - id                                   = "i-0c728bd5e8edc4b88" -> null
+      - instance_initiated_shutdown_behavior = "stop" -> null
+      - instance_state                       = "running" -> null
+      - instance_type                        = "t2.micro" -> null
+      - ipv6_address_count                   = 0 -> null
+      - ipv6_addresses                       = [] -> null
+      - key_name                             = "useast" -> null
+      - monitoring                           = false -> null
+      - placement_partition_number           = 0 -> null
+      - primary_network_interface_id         = "eni-034fa2d9b4a555cca" -> null
+      - private_dns                          = "ip-172-31-31-70.ec2.internal" -> null
+      - private_ip                           = "172.31.31.70" -> null
+      - public_dns                           = "ec2-54-90-93-203.compute-1.amazonaws.com" -> null
+      - public_ip                            = "54.90.93.203" -> null
+      - secondary_private_ips                = [] -> null
+      - security_groups                      = [
+          - "terraform-20250421111455485200000001",
+        ] -> null
+      - source_dest_check                    = true -> null
+      - subnet_id                            = "subnet-09587d0f70a7fe79c" -> null
+      - tags                                 = {
+          - "Name" = "server"
+        } -> null
+      - tags_all                             = {
+          - "Name" = "server"
+        } -> null
+      - tenancy                              = "default" -> null
+      - user_data                            = "0bb66253965fd352048926f2f17da5f0bf35b2cc" -> null
+      - user_data_replace_on_change          = false -> null
+      - vpc_security_group_ids               = [
+          - "sg-0a7433b295d7521bc",
+        ] -> null
+        # (7 unchanged attributes hidden)
+
+      - capacity_reservation_specification {
+          - capacity_reservation_preference = "open" -> null
+        }
+
+      - cpu_options {
+          - core_count       = 1 -> null
+          - threads_per_core = 1 -> null
+            # (1 unchanged attribute hidden)
+        }
+
+      - credit_specification {
+          - cpu_credits = "standard" -> null
+        }
+
+      - enclave_options {
+          - enabled = false -> null
+        }
+
+      - maintenance_options {
+          - auto_recovery = "default" -> null
+        }
+
+      - metadata_options {
+          - http_endpoint               = "enabled" -> null
+          - http_protocol_ipv6          = "disabled" -> null
+          - http_put_response_hop_limit = 2 -> null
+          - http_tokens                 = "required" -> null
+          - instance_metadata_tags      = "disabled" -> null
+        }
+
+      - private_dns_name_options {
+          - enable_resource_name_dns_a_record    = false -> null
+          - enable_resource_name_dns_aaaa_record = false -> null
+          - hostname_type                        = "ip-name" -> null
+        }
+
+      - root_block_device {
+          - delete_on_termination = true -> null
+          - device_name           = "/dev/sda1" -> null
+          - encrypted             = false -> null
+          - iops                  = 3000 -> null
+          - tags                  = {} -> null
+          - tags_all              = {} -> null
+          - throughput            = 125 -> null
+          - volume_id             = "vol-0320e4308d1872c3f" -> null
+          - volume_size           = 8 -> null
+          - volume_type           = "gp3" -> null
+            # (1 unchanged attribute hidden)
+        }
+    }
+
+  # module.lambda_add.data.aws_caller_identity.current will be read during apply
+  # (depends on a resource or a module with changes pending)
+ <= data "aws_caller_identity" "current" {
+      + account_id = (known after apply)
+      + arn        = (known after apply)
+      + id         = (known after apply)
+      + user_id    = (known after apply)
+    }
+
+  # module.lambda_add.data.aws_region.current will be read during apply
+  # (depends on a resource or a module with changes pending)
+ <= data "aws_region" "current" {
+      + description = (known after apply)
+      + endpoint    = (known after apply)
+      + id          = (known after apply)
+      + name        = (known after apply)
+    }
+
+  # module.lambda_add.aws_iam_policy.lambda_policy will be created
+  + resource "aws_iam_policy" "lambda_policy" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + id               = (known after apply)
+      + name             = (known after apply)
+      + name_prefix      = "user-data-add-policy"
+      + path             = "/"
+      + policy           = (known after apply)
+      + policy_id        = (known after apply)
+      + tags_all         = (known after apply)
+    }
+
+  # module.lambda_add.aws_iam_role.lambda_role will be created
+  + resource "aws_iam_role" "lambda_role" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = (known after apply)
+      + name_prefix           = "user-data-add-role"
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # module.lambda_add.aws_iam_role_policy_attachment.lambda_policy_attachment will be created
+  + resource "aws_iam_role_policy_attachment" "lambda_policy_attachment" {
+      + id         = (known after apply)
+      + policy_arn = (known after apply)
+      + role       = (known after apply)
+    }
+
   # module.lambda_add.aws_lambda_function.main will be created
   + resource "aws_lambda_function" "main" {
       + architectures                  = (known after apply)
@@ -188,7 +437,7 @@ Terraform will perform the following actions:
       + qualified_arn                  = (known after apply)
       + qualified_invoke_arn           = (known after apply)
       + reserved_concurrent_executions = -1
-      + role                           = "arn:aws:iam::945839052546:role/user-data-add-role20250418122135669100000001"
+      + role                           = (known after apply)
       + runtime                        = "python3.12"
       + signing_job_arn                = (known after apply)
       + signing_profile_version_arn    = (known after apply)
@@ -210,6 +459,75 @@ Terraform will perform the following actions:
       + logging_config (known after apply)
 
       + tracing_config (known after apply)
+    }
+
+  # module.lambda_retrieve.data.aws_caller_identity.current will be read during apply
+  # (depends on a resource or a module with changes pending)
+ <= data "aws_caller_identity" "current" {
+      + account_id = (known after apply)
+      + arn        = (known after apply)
+      + id         = (known after apply)
+      + user_id    = (known after apply)
+    }
+
+  # module.lambda_retrieve.data.aws_region.current will be read during apply
+  # (depends on a resource or a module with changes pending)
+ <= data "aws_region" "current" {
+      + description = (known after apply)
+      + endpoint    = (known after apply)
+      + id          = (known after apply)
+      + name        = (known after apply)
+    }
+
+  # module.lambda_retrieve.aws_iam_policy.lambda_policy will be created
+  + resource "aws_iam_policy" "lambda_policy" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + id               = (known after apply)
+      + name             = (known after apply)
+      + name_prefix      = "user-data-retrieve-policy"
+      + path             = "/"
+      + policy           = (known after apply)
+      + policy_id        = (known after apply)
+      + tags_all         = (known after apply)
+    }
+
+  # module.lambda_retrieve.aws_iam_role.lambda_role will be created
+  + resource "aws_iam_role" "lambda_role" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = (known after apply)
+      + name_prefix           = "user-data-retrieve-role"
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # module.lambda_retrieve.aws_iam_role_policy_attachment.lambda_policy_attachment will be created
+  + resource "aws_iam_role_policy_attachment" "lambda_policy_attachment" {
+      + id         = (known after apply)
+      + policy_arn = (known after apply)
+      + role       = (known after apply)
     }
 
   # module.lambda_retrieve.aws_lambda_function.main will be created
@@ -229,7 +547,7 @@ Terraform will perform the following actions:
       + qualified_arn                  = (known after apply)
       + qualified_invoke_arn           = (known after apply)
       + reserved_concurrent_executions = -1
-      + role                           = "arn:aws:iam::945839052546:role/user-data-retrieve-role20250418122135670300000002"
+      + role                           = (known after apply)
       + runtime                        = "python3.12"
       + signing_job_arn                = (known after apply)
       + signing_profile_version_arn    = (known after apply)
@@ -253,11 +571,12 @@ Terraform will perform the following actions:
       + tracing_config (known after apply)
     }
 
-Plan: 13 to add, 0 to change, 0 to destroy.
+Plan: 20 to add, 0 to change, 2 to destroy.
 
 Changes to Outputs:
   + add_user_lambda_arn      = (known after apply)
   + api_gateway_invoke_url   = (known after apply)
+  + dynamodb_table_arn       = (known after apply)
   + retrieve_user_lambda_arn = (known after apply)
 
 ─────────────────────────────────────────────────────────────────────────────
@@ -265,6 +584,6 @@ Changes to Outputs:
 Note: You didn't use the -out option to save this plan, so Terraform can't
 guarantee to take exactly these actions if you run "terraform apply" now.
 ::debug::Terraform exited with code 0.
-::debug::stdout: module.dynamodb_table.aws_dynamodb_table.main: Refreshing state... [id=UserDataTable]%0Amodule.lambda_add.data.aws_caller_identity.current: Reading...%0Amodule.lambda_retrieve.data.aws_caller_identity.current: Reading...%0Amodule.lambda_retrieve.data.aws_region.current: Reading...%0Amodule.lambda_add.aws_iam_role.lambda_role: Refreshing state... [id=user-data-add-role20250418122135669100000001]%0Amodule.lambda_add.data.aws_region.current: Reading...%0Amodule.lambda_retrieve.aws_iam_role.lambda_role: Refreshing state... [id=user-data-retrieve-role20250418122135670300000002]%0Amodule.lambda_retrieve.data.aws_region.current: Read complete after 0s [id=us-east-1]%0Amodule.lambda_add.data.aws_region.current: Read complete after 0s [id=us-east-1]%0Amodule.lambda_retrieve.data.aws_caller_identity.current: Read complete after 0s [id=945839052546]%0Amodule.lambda_retrieve.aws_iam_policy.lambda_policy: Refreshing state... [id=arn:aws:iam::945839052546:policy/user-data-retrieve-policy20250418122135804600000004]%0Amodule.lambda_add.data.aws_caller_identity.current: Read complete after 0s [id=945839052546]%0Amodule.lambda_add.aws_iam_policy.lambda_policy: Refreshing state... [id=arn:aws:iam::945839052546:policy/user-data-add-policy20250418122135737400000003]%0Amodule.lambda_add.aws_iam_role_policy_attachment.lambda_policy_attachment: Refreshing state... [id=user-data-add-role20250418122135669100000001-20250418122136684100000006]%0Amodule.lambda_retrieve.aws_iam_role_policy_attachment.lambda_policy_attachment: Refreshing state... [id=user-data-retrieve-role20250418122135670300000002-20250418122136452400000005]%0A%0ATerraform used the selected providers to generate the following execution%0Aplan. Resource actions are indicated with the following symbols:%0A  + create%0A <= read (data resources)%0A%0ATerraform will perform the following actions:%0A%0A  # module.api_gateway.data.aws_region.current will be read during apply%0A  # (depends on a resource or a module with changes pending)%0A <= data "aws_region" "current" {%0A      + description = (known after apply)%0A      + endpoint    = (known after apply)%0A      + id          = (known after apply)%0A      + name        = (known after apply)%0A    }%0A%0A  # module.api_gateway.aws_api_gateway_deployment.main will be created%0A  + resource "aws_api_gateway_deployment" "main" {%0A      + created_date  = (known after apply)%0A      + execution_arn = (known after apply)%0A      + id            = (known after apply)%0A      + invoke_url    = (known after apply)%0A      + rest_api_id   = (known after apply)%0A    }%0A%0A  # module.api_gateway.aws_api_gateway_integration.add_user will be created%0A  + resource "aws_api_gateway_integration" "add_user" {%0A      + cache_namespace         = (known after apply)%0A      + connection_type         = "INTERNET"%0A      + content_handling        = "CONVERT_TO_TEXT"%0A      + http_method             = "POST"%0A      + id                      = (known after apply)%0A      + integration_http_method = "POST"%0A      + passthrough_behavior    = "WHEN_NO_MATCH"%0A      + resource_id             = (known after apply)%0A      + rest_api_id             = (known after apply)%0A      + timeout_milliseconds    = 29000%0A      + type                    = "AWS_PROXY"%0A      + uri                     = (known after apply)%0A    }%0A%0A  # module.api_gateway.aws_api_gateway_integration.retrieve_user will be created%0A  + resource "aws_api_gateway_integration" "retrieve_user" {%0A      + cache_namespace         = (known after apply)%0A      + connection_type         = "INTERNET"%0A      + content_handling        = "CONVERT_TO_TEXT"%0A      + http_method             = "GET"%0A      + id                      = (known after apply)%0A      + integration_http_method = "POST"%0A      + passthrough_behavior    = "WHEN_NO_MATCH"%0A      + resource_id             = (known after apply)%0A      + rest_api_id             = (known after apply)%0A      + timeout_milliseconds    = 29000%0A      + type                    = "AWS_PROXY"%0A      + uri                     = (known after apply)%0A    }%0A%0A  # module.api_gateway.aws_api_gateway_method.get_user will be created%0A  + resource "aws_api_gateway_method" "get_user" {%0A      + api_key_required   = false%0A      + authorization      = "NONE"%0A      + http_method        = "GET"%0A      + id                 = (known after apply)%0A      + request_parameters = {%0A          + "method.request.path.user_id" = true%0A        }%0A      + resource_id        = (known after apply)%0A      + rest_api_id        = (known after apply)%0A    }%0A%0A  # module.api_gateway.aws_api_gateway_method.post_users will be created%0A  + resource "aws_api_gateway_method" "post_users" {%0A      + api_key_required = false%0A      + authorization    = "NONE"%0A      + http_method      = "POST"%0A      + id               = (known after apply)%0A      + resource_id      = (known after apply)%0A      + rest_api_id      = (known after apply)%0A    }%0A%0A  # module.api_gateway.aws_api_gateway_resource.user_id will be created%0A  + resource "aws_api_gateway_resource" "user_id" {%0A      + id          = (known after apply)%0A      + parent_id   = (known after apply)%0A      + path        = (known after apply)%0A      + path_part   = "{user_id}"%0A      + rest_api_id = (known after apply)%0A    }%0A%0A  # module.api_gateway.aws_api_gateway_resource.users will be created%0A  + resource "aws_api_gateway_resource" "users" {%0A      + id          = (known after apply)%0A      + parent_id   = (known after apply)%0A      + path        = (known after apply)%0A      + path_part   = "users"%0A      + rest_api_id = (known after apply)%0A    }%0A%0A  # module.api_gateway.aws_api_gateway_rest_api.main will be created%0A  + resource "aws_api_gateway_rest_api" "main" {%0A      + api_key_source               = (known after apply)%0A      + arn                          = (known after apply)%0A      + binary_media_types           = (known after apply)%0A      + created_date                 = (known after apply)%0A      + description                  = "API Gateway for User Data Management"%0A      + disable_execute_api_endpoint = (known after apply)%0A      + execution_arn                = (known after apply)%0A      + id                           = (known after apply)%0A      + minimum_compression_size     = (known after apply)%0A      + name                         = "UserDataAPI"%0A      + policy                       = (known after apply)%0A      + root_resource_id             = (known after apply)%0A      + tags_all                     = (known after apply)%0A%0A      + endpoint_configuration (known after apply)%0A    }%0A%0A  # module.api_gateway.aws_api_gateway_stage.main will be created%0A  + resource "aws_api_gateway_stage" "main" {%0A      + arn           = (known after apply)%0A      + deployment_id = (known after apply)%0A      + execution_arn = (known after apply)%0A      + id            = (known after apply)%0A      + invoke_url    = (known after apply)%0A      + rest_api_id   = (known after apply)%0A      + stage_name    = "prod"%0A      + tags_all      = (known after apply)%0A      + web_acl_arn   = (known after apply)%0A    }%0A%0A  # module.api_gateway.aws_lambda_permission.add_user will be created%0A  + resource "aws_lambda_permission" "add_user" {%0A      + action              = "lambda:InvokeFunction"%0A      + function_name       = (known after apply)%0A      + id                  = (known after apply)%0A      + principal           = "apigateway.amazonaws.com"%0A      + source_arn          = (known after apply)%0A      + statement_id        = "AllowAPIGatewayInvoke-AddUser"%0A      + statement_id_prefix = (known after apply)%0A    }%0A%0A  # module.api_gateway.aws_lambda_permission.retrieve_user will be created%0A  + resource "aws_lambda_permission" "retrieve_user" {%0A      + action              = "lambda:InvokeFunction"%0A      + function_name       = (known after apply)%0A      + id                  = (known after apply)%0A      + principal           = "apigateway.amazonaws.com"%0A      + source_arn          = (known after apply)%0A      + statement_id        = "AllowAPIGatewayInvoke-RetrieveUser"%0A      + statement_id_prefix = (known after apply)%0A    }%0A%0A  # module.lambda_add.aws_lambda_function.main will be created%0A  + resource "aws_lambda_function" "main" {%0A      + architectures                  = (known after apply)%0A      + arn                            = (known after apply)%0A      + code_sha256                    = (known after apply)%0A      + filename                       = "./modules/lambda/add_user/main.py"%0A      + function_name                  = "user-data-add"%0A      + handler                        = "main.handler"%0A      + id                             = (known after apply)%0A      + invoke_arn                     = (known after apply)%0A      + last_modified                  = (known after apply)%0A      + memory_size                    = 128%0A      + package_type                   = "Zip"%0A      + publish                        = false%0A      + qualified_arn                  = (known after apply)%0A      + qualified_invoke_arn           = (known after apply)%0A      + reserved_concurrent_executions = -1%0A      + role                           = "arn:aws:iam::945839052546:role/user-data-add-role20250418122135669100000001"%0A      + runtime                        = "python3.12"%0A      + signing_job_arn                = (known after apply)%0A      + signing_profile_version_arn    = (known after apply)%0A      + skip_destroy                   = false%0A      + source_code_hash               = (known after apply)%0A      + source_code_size               = (known after apply)%0A      + tags_all                       = (known after apply)%0A      + timeout                        = 30%0A      + version                        = (known after apply)%0A%0A      + environment {%0A          + variables = {%0A              + "DYNAMODB_TABLE_NAME" = "UserDataTable"%0A            }%0A        }%0A%0A      + ephemeral_storage (known after apply)%0A%0A      + logging_config (known after apply)%0A%0A      + tracing_config (known after apply)%0A    }%0A%0A  # module.lambda_retrieve.aws_lambda_function.main will be created%0A  + resource "aws_lambda_function" "main" {%0A      + architectures                  = (known after apply)%0A      + arn                            = (known after apply)%0A      + code_sha256                    = (known after apply)%0A      + filename                       = "./modules/lambda/get_user/main.py"%0A      + function_name                  = "user-data-retrieve"%0A      + handler                        = "main.handler"%0A      + id                             = (known after apply)%0A      + invoke_arn                     = (known after apply)%0A      + last_modified                  = (known after apply)%0A      + memory_size                    = 128%0A      + package_type                   = "Zip"%0A      + publish                        = false%0A      + qualified_arn                  = (known after apply)%0A      + qualified_invoke_arn           = (known after apply)%0A      + reserved_concurrent_executions = -1%0A      + role                           = "arn:aws:iam::945839052546:role/user-data-retrieve-role20250418122135670300000002"%0A      + runtime                        = "python3.12"%0A      + signing_job_arn                = (known after apply)%0A      + signing_profile_version_arn    = (known after apply)%0A      + skip_destroy                   = false%0A      + source_code_hash               = (known after apply)%0A      + source_code_size               = (known after apply)%0A      + tags_all                       = (known after apply)%0A      + timeout                        = 30%0A      + version                        = (known after apply)%0A%0A      + environment {%0A          + variables = {%0A              + "DYNAMODB_TABLE_NAME" = "UserDataTable"%0A            }%0A        }%0A%0A      + ephemeral_storage (known after apply)%0A%0A      + logging_config (known after apply)%0A%0A      + tracing_config (known after apply)%0A    }%0A%0APlan: 13 to add, 0 to change, 0 to destroy.%0A%0AChanges to Outputs:%0A  + add_user_lambda_arn      = (known after apply)%0A  + api_gateway_invoke_url   = (known after apply)%0A  + retrieve_user_lambda_arn = (known after apply)%0A%0A─────────────────────────────────────────────────────────────────────────────%0A%0ANote: You didn't use the -out option to save this plan, so Terraform can't%0Aguarantee to take exactly these actions if you run "terraform apply" now.%0A
+::debug::stdout: aws_security_group.ec2-sg: Refreshing state... [id=sg-0a7433b295d7521bc]%0Amodule.ec2_instance.aws_instance.server: Refreshing state... [id=i-0c728bd5e8edc4b88]%0A%0ATerraform used the selected providers to generate the following execution%0Aplan. Resource actions are indicated with the following symbols:%0A  + create%0A  - destroy%0A <= read (data resources)%0A%0ATerraform will perform the following actions:%0A%0A  # aws_security_group.ec2-sg will be destroyed%0A  # (because aws_security_group.ec2-sg is not in configuration)%0A  - resource "aws_security_group" "ec2-sg" {%0A      - arn                    = "arn:aws:ec2:us-east-1:945839052546:security-group/sg-0a7433b295d7521bc" -> null%0A      - description            = "Managed by Terraform" -> null%0A      - egress                 = [%0A          - {%0A              - cidr_blocks      = [%0A                  - "0.0.0.0/0",%0A                ]%0A              - from_port        = 0%0A              - ipv6_cidr_blocks = []%0A              - prefix_list_ids  = []%0A              - protocol         = "-1"%0A              - security_groups  = []%0A              - self             = false%0A              - to_port          = 0%0A                # (1 unchanged attribute hidden)%0A            },%0A        ] -> null%0A      - id                     = "sg-0a7433b295d7521bc" -> null%0A      - ingress                = [%0A          - {%0A              - cidr_blocks      = [%0A                  - "0.0.0.0/0",%0A                ]%0A              - from_port        = 22%0A              - ipv6_cidr_blocks = []%0A              - prefix_list_ids  = []%0A              - protocol         = "tcp"%0A              - security_groups  = []%0A              - self             = false%0A              - to_port          = 22%0A                # (1 unchanged attribute hidden)%0A            },%0A          - {%0A              - cidr_blocks      = [%0A                  - "0.0.0.0/0",%0A                ]%0A              - from_port        = 80%0A              - ipv6_cidr_blocks = []%0A              - prefix_list_ids  = []%0A              - protocol         = "tcp"%0A              - security_groups  = []%0A              - self             = false%0A              - to_port          = 80%0A                # (1 unchanged attribute hidden)%0A            },%0A        ] -> null%0A      - name                   = "terraform-20250421111455485200000001" -> null%0A      - name_prefix            = "terraform-" -> null%0A      - owner_id               = "945839052546" -> null%0A      - revoke_rules_on_delete = false -> null%0A      - tags                   = {%0A          - "Name" = "server"%0A        } -> null%0A      - tags_all               = {%0A          - "Name" = "server"%0A        } -> null%0A      - vpc_id                 = "vpc-0feb09ec941ba1ac9" -> null%0A    }%0A%0A  # module.api_gateway.data.aws_region.current will be read during apply%0A  # (depends on a resource or a module with changes pending)%0A <= data "aws_region" "current" {%0A      + description = (known after apply)%0A      + endpoint    = (known after apply)%0A      + id          = (known after apply)%0A      + name        = (known after apply)%0A    }%0A%0A  # module.api_gateway.aws_api_gateway_deployment.main will be created%0A  + resource "aws_api_gateway_deployment" "main" {%0A      + created_date  = (known after apply)%0A      + execution_arn = (known after apply)%0A      + id            = (known after apply)%0A      + invoke_url    = (known after apply)%0A      + rest_api_id   = (known after apply)%0A    }%0A%0A  # module.api_gateway.aws_api_gateway_integration.add_user will be created%0A  + resource "aws_api_gateway_integration" "add_user" {%0A      + cache_namespace         = (known after apply)%0A      + connection_type         = "INTERNET"%0A      + content_handling        = "CONVERT_TO_TEXT"%0A      + http_method             = "POST"%0A      + id                      = (known after apply)%0A      + integration_http_method = "POST"%0A      + passthrough_behavior    = "WHEN_NO_MATCH"%0A      + resource_id             = (known after apply)%0A      + rest_api_id             = (known after apply)%0A      + timeout_milliseconds    = 29000%0A      + type                    = "AWS_PROXY"%0A      + uri                     = (known after apply)%0A    }%0A%0A  # module.api_gateway.aws_api_gateway_integration.retrieve_user will be created%0A  + resource "aws_api_gateway_integration" "retrieve_user" {%0A      + cache_namespace         = (known after apply)%0A      + connection_type         = "INTERNET"%0A      + content_handling        = "CONVERT_TO_TEXT"%0A      + http_method             = "GET"%0A      + id                      = (known after apply)%0A      + integration_http_method = "POST"%0A      + passthrough_behavior    = "WHEN_NO_MATCH"%0A      + resource_id             = (known after apply)%0A      + rest_api_id             = (known after apply)%0A      + timeout_milliseconds    = 29000%0A      + type                    = "AWS_PROXY"%0A      + uri                     = (known after apply)%0A    }%0A%0A  # module.api_gateway.aws_api_gateway_method.get_user will be created%0A  + resource "aws_api_gateway_method" "get_user" {%0A      + api_key_required   = false%0A      + authorization      = "NONE"%0A      + http_method        = "GET"%0A      + id                 = (known after apply)%0A      + request_parameters = {%0A          + "method.request.path.user_id" = true%0A        }%0A      + resource_id        = (known after apply)%0A      + rest_api_id        = (known after apply)%0A    }%0A%0A  # module.api_gateway.aws_api_gateway_method.post_users will be created%0A  + resource "aws_api_gateway_method" "post_users" {%0A      + api_key_required = false%0A      + authorization    = "NONE"%0A      + http_method      = "POST"%0A      + id               = (known after apply)%0A      + resource_id      = (known after apply)%0A      + rest_api_id      = (known after apply)%0A    }%0A%0A  # module.api_gateway.aws_api_gateway_resource.user_id will be created%0A  + resource "aws_api_gateway_resource" "user_id" {%0A      + id          = (known after apply)%0A      + parent_id   = (known after apply)%0A      + path        = (known after apply)%0A      + path_part   = "{user_id}"%0A      + rest_api_id = (known after apply)%0A    }%0A%0A  # module.api_gateway.aws_api_gateway_resource.users will be created%0A  + resource "aws_api_gateway_resource" "users" {%0A      + id          = (known after apply)%0A      + parent_id   = (known after apply)%0A      + path        = (known after apply)%0A      + path_part   = "users"%0A      + rest_api_id = (known after apply)%0A    }%0A%0A  # module.api_gateway.aws_api_gateway_rest_api.main will be created%0A  + resource "aws_api_gateway_rest_api" "main" {%0A      + api_key_source               = (known after apply)%0A      + arn                          = (known after apply)%0A      + binary_media_types           = (known after apply)%0A      + created_date                 = (known after apply)%0A      + description                  = "API Gateway for User Data Management"%0A      + disable_execute_api_endpoint = (known after apply)%0A      + execution_arn                = (known after apply)%0A      + id                           = (known after apply)%0A      + minimum_compression_size     = (known after apply)%0A      + name                         = "UserDataAPI"%0A      + policy                       = (known after apply)%0A      + root_resource_id             = (known after apply)%0A      + tags_all                     = (known after apply)%0A%0A      + endpoint_configuration (known after apply)%0A    }%0A%0A  # module.api_gateway.aws_api_gateway_stage.main will be created%0A  + resource "aws_api_gateway_stage" "main" {%0A      + arn           = (known after apply)%0A      + deployment_id = (known after apply)%0A      + execution_arn = (known after apply)%0A      + id            = (known after apply)%0A      + invoke_url    = (known after apply)%0A      + rest_api_id   = (known after apply)%0A      + stage_name    = "prod"%0A      + tags_all      = (known after apply)%0A      + web_acl_arn   = (known after apply)%0A    }%0A%0A  # module.api_gateway.aws_lambda_permission.add_user will be created%0A  + resource "aws_lambda_permission" "add_user" {%0A      + action              = "lambda:InvokeFunction"%0A      + function_name       = (known after apply)%0A      + id                  = (known after apply)%0A      + principal           = "apigateway.amazonaws.com"%0A      + source_arn          = (known after apply)%0A      + statement_id        = "AllowAPIGatewayInvoke-AddUser"%0A      + statement_id_prefix = (known after apply)%0A    }%0A%0A  # module.api_gateway.aws_lambda_permission.retrieve_user will be created%0A  + resource "aws_lambda_permission" "retrieve_user" {%0A      + action              = "lambda:InvokeFunction"%0A      + function_name       = (known after apply)%0A      + id                  = (known after apply)%0A      + principal           = "apigateway.amazonaws.com"%0A      + source_arn          = (known after apply)%0A      + statement_id        = "AllowAPIGatewayInvoke-RetrieveUser"%0A      + statement_id_prefix = (known after apply)%0A    }%0A%0A  # module.dynamodb_table.aws_dynamodb_table.main will be created%0A  + resource "aws_dynamodb_table" "main" {%0A      + arn              = (known after apply)%0A      + billing_mode     = "PAY_PER_REQUEST"%0A      + hash_key         = "UserID"%0A      + id               = (known after apply)%0A      + name             = "UserDataTable"%0A      + read_capacity    = (known after apply)%0A      + stream_arn       = (known after apply)%0A      + stream_label     = (known after apply)%0A      + stream_view_type = (known after apply)%0A      + tags             = {%0A          + "Environment" = "dev"%0A        }%0A      + tags_all         = {%0A          + "Environment" = "dev"%0A        }%0A      + write_capacity   = (known after apply)%0A%0A      + attribute {%0A          + name = "UserID"%0A          + type = "S"%0A        }%0A%0A      + point_in_time_recovery (known after apply)%0A%0A      + server_side_encryption (known after apply)%0A%0A      + ttl (known after apply)%0A    }%0A%0A  # module.ec2_instance.aws_instance.server will be destroyed%0A  # (because aws_instance.server is not in configuration)%0A  - resource "aws_instance" "server" {%0A      - ami                                  = "ami-084568db4383264d4" -> null%0A      - arn                                  = "arn:aws:ec2:us-east-1:945839052546:instance/i-0c728bd5e8edc4b88" -> null%0A      - associate_public_ip_address          = true -> null%0A      - availability_zone                    = "us-east-1a" -> null%0A      - cpu_core_count                       = 1 -> null%0A      - cpu_threads_per_core                 = 1 -> null%0A      - disable_api_stop                     = false -> null%0A      - disable_api_termination              = false -> null%0A      - ebs_optimized                        = false -> null%0A      - get_password_data                    = false -> null%0A      - hibernation                          = false -> null%0A      - id                                   = "i-0c728bd5e8edc4b88" -> null%0A      - instance_initiated_shutdown_behavior = "stop" -> null%0A      - instance_state                       = "running" -> null%0A      - instance_type                        = "t2.micro" -> null%0A      - ipv6_address_count                   = 0 -> null%0A      - ipv6_addresses                       = [] -> null%0A      - key_name                             = "useast" -> null%0A      - monitoring                           = false -> null%0A      - placement_partition_number           = 0 -> null%0A      - primary_network_interface_id         = "eni-034fa2d9b4a555cca" -> null%0A      - private_dns                          = "ip-172-31-31-70.ec2.internal" -> null%0A      - private_ip                           = "172.31.31.70" -> null%0A      - public_dns                           = "ec2-54-90-93-203.compute-1.amazonaws.com" -> null%0A      - public_ip                            = "54.90.93.203" -> null%0A      - secondary_private_ips                = [] -> null%0A      - security_groups                      = [%0A          - "terraform-20250421111455485200000001",%0A        ] -> null%0A      - source_dest_check                    = true -> null%0A      - subnet_id                            = "subnet-09587d0f70a7fe79c" -> null%0A      - tags                                 = {%0A          - "Name" = "server"%0A        } -> null%0A      - tags_all                             = {%0A          - "Name" = "server"%0A        } -> null%0A      - tenancy                              = "default" -> null%0A      - user_data                            = "0bb66253965fd352048926f2f17da5f0bf35b2cc" -> null%0A      - user_data_replace_on_change          = false -> null%0A      - vpc_security_group_ids               = [%0A          - "sg-0a7433b295d7521bc",%0A        ] -> null%0A        # (7 unchanged attributes hidden)%0A%0A      - capacity_reservation_specification {%0A          - capacity_reservation_preference = "open" -> null%0A        }%0A%0A      - cpu_options {%0A          - core_count       = 1 -> null%0A          - threads_per_core = 1 -> null%0A            # (1 unchanged attribute hidden)%0A        }%0A%0A      - credit_specification {%0A          - cpu_credits = "standard" -> null%0A        }%0A%0A      - enclave_options {%0A          - enabled = false -> null%0A        }%0A%0A      - maintenance_options {%0A          - auto_recovery = "default" -> null%0A        }%0A%0A      - metadata_options {%0A          - http_endpoint               = "enabled" -> null%0A          - http_protocol_ipv6          = "disabled" -> null%0A          - http_put_response_hop_limit = 2 -> null%0A          - http_tokens                 = "required" -> null%0A          - instance_metadata_tags      = "disabled" -> null%0A        }%0A%0A      - private_dns_name_options {%0A          - enable_resource_name_dns_a_record    = false -> null%0A          - enable_resource_name_dns_aaaa_record = false -> null%0A          - hostname_type                        = "ip-name" -> null%0A        }%0A%0A      - root_block_device {%0A          - delete_on_termination = true -> null%0A          - device_name           = "/dev/sda1" -> null%0A          - encrypted             = false -> null%0A          - iops                  = 3000 -> null%0A          - tags                  = {} -> null%0A          - tags_all              = {} -> null%0A          - throughput            = 125 -> null%0A          - volume_id             = "vol-0320e4308d1872c3f" -> null%0A          - volume_size           = 8 -> null%0A          - volume_type           = "gp3" -> null%0A            # (1 unchanged attribute hidden)%0A        }%0A    }%0A%0A  # module.lambda_add.data.aws_caller_identity.current will be read during apply%0A  # (depends on a resource or a module with changes pending)%0A <= data "aws_caller_identity" "current" {%0A      + account_id = (known after apply)%0A      + arn        = (known after apply)%0A      + id         = (known after apply)%0A      + user_id    = (known after apply)%0A    }%0A%0A  # module.lambda_add.data.aws_region.current will be read during apply%0A  # (depends on a resource or a module with changes pending)%0A <= data "aws_region" "current" {%0A      + description = (known after apply)%0A      + endpoint    = (known after apply)%0A      + id          = (known after apply)%0A      + name        = (known after apply)%0A    }%0A%0A  # module.lambda_add.aws_iam_policy.lambda_policy will be created%0A  + resource "aws_iam_policy" "lambda_policy" {%0A      + arn              = (known after apply)%0A      + attachment_count = (known after apply)%0A      + id               = (known after apply)%0A      + name             = (known after apply)%0A      + name_prefix      = "user-data-add-policy"%0A      + path             = "/"%0A      + policy           = (known after apply)%0A      + policy_id        = (known after apply)%0A      + tags_all         = (known after apply)%0A    }%0A%0A  # module.lambda_add.aws_iam_role.lambda_role will be created%0A  + resource "aws_iam_role" "lambda_role" {%0A      + arn                   = (known after apply)%0A      + assume_role_policy    = jsonencode(%0A            {%0A              + Statement = [%0A                  + {%0A                      + Action    = "sts:AssumeRole"%0A                      + Effect    = "Allow"%0A                      + Principal = {%0A                          + Service = "lambda.amazonaws.com"%0A                        }%0A                    },%0A                ]%0A              + Version   = "2012-10-17"%0A            }%0A        )%0A      + create_date           = (known after apply)%0A      + force_detach_policies = false%0A      + id                    = (known after apply)%0A      + managed_policy_arns   = (known after apply)%0A      + max_session_duration  = 3600%0A      + name                  = (known after apply)%0A      + name_prefix           = "user-data-add-role"%0A      + path                  = "/"%0A      + tags_all              = (known after apply)%0A      + unique_id             = (known after apply)%0A%0A      + inline_policy (known after apply)%0A    }%0A%0A  # module.lambda_add.aws_iam_role_policy_attachment.lambda_policy_attachment will be created%0A  + resource "aws_iam_role_policy_attachment" "lambda_policy_attachment" {%0A      + id         = (known after apply)%0A      + policy_arn = (known after apply)%0A      + role       = (known after apply)%0A    }%0A%0A  # module.lambda_add.aws_lambda_function.main will be created%0A  + resource "aws_lambda_function" "main" {%0A      + architectures                  = (known after apply)%0A      + arn                            = (known after apply)%0A      + code_sha256                    = (known after apply)%0A      + filename                       = "./modules/lambda/add_user/main.py"%0A      + function_name                  = "user-data-add"%0A      + handler                        = "main.handler"%0A      + id                             = (known after apply)%0A      + invoke_arn                     = (known after apply)%0A      + last_modified                  = (known after apply)%0A      + memory_size                    = 128%0A      + package_type                   = "Zip"%0A      + publish                        = false%0A      + qualified_arn                  = (known after apply)%0A      + qualified_invoke_arn           = (known after apply)%0A      + reserved_concurrent_executions = -1%0A      + role                           = (known after apply)%0A      + runtime                        = "python3.12"%0A      + signing_job_arn                = (known after apply)%0A      + signing_profile_version_arn    = (known after apply)%0A      + skip_destroy                   = false%0A      + source_code_hash               = (known after apply)%0A      + source_code_size               = (known after apply)%0A      + tags_all                       = (known after apply)%0A      + timeout                        = 30%0A      + version                        = (known after apply)%0A%0A      + environment {%0A          + variables = {%0A              + "DYNAMODB_TABLE_NAME" = "UserDataTable"%0A            }%0A        }%0A%0A      + ephemeral_storage (known after apply)%0A%0A      + logging_config (known after apply)%0A%0A      + tracing_config (known after apply)%0A    }%0A%0A  # module.lambda_retrieve.data.aws_caller_identity.current will be read during apply%0A  # (depends on a resource or a module with changes pending)%0A <= data "aws_caller_identity" "current" {%0A      + account_id = (known after apply)%0A      + arn        = (known after apply)%0A      + id         = (known after apply)%0A      + user_id    = (known after apply)%0A    }%0A%0A  # module.lambda_retrieve.data.aws_region.current will be read during apply%0A  # (depends on a resource or a module with changes pending)%0A <= data "aws_region" "current" {%0A      + description = (known after apply)%0A      + endpoint    = (known after apply)%0A      + id          = (known after apply)%0A      + name        = (known after apply)%0A    }%0A%0A  # module.lambda_retrieve.aws_iam_policy.lambda_policy will be created%0A  + resource "aws_iam_policy" "lambda_policy" {%0A      + arn              = (known after apply)%0A      + attachment_count = (known after apply)%0A      + id               = (known after apply)%0A      + name             = (known after apply)%0A      + name_prefix      = "user-data-retrieve-policy"%0A      + path             = "/"%0A      + policy           = (known after apply)%0A      + policy_id        = (known after apply)%0A      + tags_all         = (known after apply)%0A    }%0A%0A  # module.lambda_retrieve.aws_iam_role.lambda_role will be created%0A  + resource "aws_iam_role" "lambda_role" {%0A      + arn                   = (known after apply)%0A      + assume_role_policy    = jsonencode(%0A            {%0A              + Statement = [%0A                  + {%0A                      + Action    = "sts:AssumeRole"%0A                      + Effect    = "Allow"%0A                      + Principal = {%0A                          + Service = "lambda.amazonaws.com"%0A                        }%0A                    },%0A                ]%0A              + Version   = "2012-10-17"%0A            }%0A        )%0A      + create_date           = (known after apply)%0A      + force_detach_policies = false%0A      + id                    = (known after apply)%0A      + managed_policy_arns   = (known after apply)%0A      + max_session_duration  = 3600%0A      + name                  = (known after apply)%0A      + name_prefix           = "user-data-retrieve-role"%0A      + path                  = "/"%0A      + tags_all              = (known after apply)%0A      + unique_id             = (known after apply)%0A%0A      + inline_policy (known after apply)%0A    }%0A%0A  # module.lambda_retrieve.aws_iam_role_policy_attachment.lambda_policy_attachment will be created%0A  + resource "aws_iam_role_policy_attachment" "lambda_policy_attachment" {%0A      + id         = (known after apply)%0A      + policy_arn = (known after apply)%0A      + role       = (known after apply)%0A    }%0A%0A  # module.lambda_retrieve.aws_lambda_function.main will be created%0A  + resource "aws_lambda_function" "main" {%0A      + architectures                  = (known after apply)%0A      + arn                            = (known after apply)%0A      + code_sha256                    = (known after apply)%0A      + filename                       = "./modules/lambda/get_user/main.py"%0A      + function_name                  = "user-data-retrieve"%0A      + handler                        = "main.handler"%0A      + id                             = (known after apply)%0A      + invoke_arn                     = (known after apply)%0A      + last_modified                  = (known after apply)%0A      + memory_size                    = 128%0A      + package_type                   = "Zip"%0A      + publish                        = false%0A      + qualified_arn                  = (known after apply)%0A      + qualified_invoke_arn           = (known after apply)%0A      + reserved_concurrent_executions = -1%0A      + role                           = (known after apply)%0A      + runtime                        = "python3.12"%0A      + signing_job_arn                = (known after apply)%0A      + signing_profile_version_arn    = (known after apply)%0A      + skip_destroy                   = false%0A      + source_code_hash               = (known after apply)%0A      + source_code_size               = (known after apply)%0A      + tags_all                       = (known after apply)%0A      + timeout                        = 30%0A      + version                        = (known after apply)%0A%0A      + environment {%0A          + variables = {%0A              + "DYNAMODB_TABLE_NAME" = "UserDataTable"%0A            }%0A        }%0A%0A      + ephemeral_storage (known after apply)%0A%0A      + logging_config (known after apply)%0A%0A      + tracing_config (known after apply)%0A    }%0A%0APlan: 20 to add, 0 to change, 2 to destroy.%0A%0AChanges to Outputs:%0A  + add_user_lambda_arn      = (known after apply)%0A  + api_gateway_invoke_url   = (known after apply)%0A  + dynamodb_table_arn       = (known after apply)%0A  + retrieve_user_lambda_arn = (known after apply)%0A%0A─────────────────────────────────────────────────────────────────────────────%0A%0ANote: You didn't use the -out option to save this plan, so Terraform can't%0Aguarantee to take exactly these actions if you run "terraform apply" now.%0A
 ::debug::stderr: 
 ::debug::exitcode: 0
